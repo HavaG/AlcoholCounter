@@ -1,7 +1,6 @@
 package com.example.alcoholcounter;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,12 +16,9 @@ import com.example.alcoholcounter.database.DrinkCounterDB;
 import com.example.alcoholcounter.fragments.BeerDialogFragment;
 import com.example.alcoholcounter.fragments.DatePickerFragment;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity implements BeerDialogFragment.NewDrinkDialogListener {
 
     DrinkCounterDB DB;
-    ArrayList<Integer> date = new ArrayList<>();
     BeerDialogFragment bdf = new BeerDialogFragment();
 
     @Override
@@ -109,20 +105,6 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
     public void showDatePicker(View v) {
 
         DatePickerFragment newFragment = new DatePickerFragment();
-
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putIntegerArrayList("date", date);
-        newFragment.setArguments(bundle);
-        */
-
-        newFragment.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-
-            }
-        });
-
         newFragment.show(getSupportFragmentManager(), "date picker");
     }
 }

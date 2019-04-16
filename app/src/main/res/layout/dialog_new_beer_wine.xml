@@ -118,17 +118,4 @@
             android:onClick="showDatePicker"/>
     </LinearLayout>
 
-
-    <TextView
-        android:padding="12dip"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:layout_weight="2"
-        android:id="@+id/selectedDate"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/selected_date"
-        android:onClick="showDatePicker"/>
-    <!-- TODO display the selected date -->
-
 </LinearLayout>

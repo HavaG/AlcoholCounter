@@ -2,7 +2,6 @@ package com.example.alcoholcounter.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
@@ -19,34 +18,7 @@ public class DatePickerFragment extends DialogFragment {
         int month = c.get(Calendar.MONTH) + 1;
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        /*
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            ArrayList<Integer> date = bundle.getIntegerArrayList("date");
-            date.add(year);
-            date.add(month);
-            date.add(day);
-        }
-        */
-
-        //getActivity(), dateSetListener, year, month, day);
-
         return new DatePickerDialog(getActivity(), dateSetListener, year, month, day);
-    }
-
-
-    private DialogInterface.OnDismissListener onDismissListener;
-
-    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
-        this.onDismissListener = onDismissListener;
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (onDismissListener != null) {
-            onDismissListener.onDismiss(dialog);
-        }
     }
 
     private DatePickerDialog.OnDateSetListener dateSetListener =
