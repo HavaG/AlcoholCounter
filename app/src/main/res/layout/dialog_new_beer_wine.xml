@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="24dip">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_weight="2"
+            android:textSize="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/nameOptional"
+            android:padding="12dip"
+            android:gravity="center"/>
+
+        <EditText
+            android:layout_weight="1"
+            android:id="@+id/beerWineName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_weight="2"
+            android:textSize="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity"
+            android:padding="12dip"
+            android:gravity="center"/>
+
+        <EditText
+            android:layout_weight="1"
+            android:inputType="number"
+            android:id="@+id/beerWineQuantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_weight="2"
+            android:textSize="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/type"
+            android:padding="12dip"
+            android:gravity="center"/>
+
+        <Spinner
+            android:layout_weight="1"
+            android:id="@+id/beerWineTypeSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_weight="2"
+            android:textSize="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/unit"
+            android:padding="12dip"
+            android:gravity="center"/>
+
+        <Spinner
+            android:layout_weight="1"
+            android:id="@+id/beerWineUnitSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <TextView
+            android:padding="12dip"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_weight="2"
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/date"/>
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/beerWineDateBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/pick_date"
+            android:onClick="showDatePicker"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:padding="12dip"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_weight="2"
+        android:id="@+id/selectedDate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/selected_date"
+        android:onClick="showDatePicker"/>
+    <!-- TODO display the selected date -->
+
+</LinearLayout>
