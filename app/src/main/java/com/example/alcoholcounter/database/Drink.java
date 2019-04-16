@@ -17,7 +17,7 @@ public class Drink {
     public String name;
 
     @ColumnInfo(name = "unit")
-    public Unit unit;
+    public double unit;
 
     @ColumnInfo(name = "quantity")
     public double quantity;

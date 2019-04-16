@@ -14,14 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alcoholcounter.R;
 import com.example.alcoholcounter.database.Drink;
 import com.example.alcoholcounter.database.DrinkCounterDB;
 import com.example.alcoholcounter.database.Type;
-import com.example.alcoholcounter.database.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,6 @@ public class BeerDialogFragment extends DialogFragment {
 
     private DrinkCounterDB DB;
     private List<Type> types;
-    private List<Unit> units;
     private List<String> typeNames = new ArrayList<>();
     private List<String> unitNames = new ArrayList<>();
 
@@ -77,22 +74,6 @@ public class BeerDialogFragment extends DialogFragment {
                 .create();
     }
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            ArrayList<Integer> date = bundle.getIntegerArrayList("date");
-            View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_beer_wine, null);
-            TextView tv = contentView.findViewById(R.id.selectedDate);
-            String pickedDate = date.get(0).toString() + '.' + date.get(1).toString() + '.' + date.get(2) + '.';
-            String s = "The picked date: " + pickedDate;
-            tv.setText(s);
-        }
-    }
-
     private EditText beerWineName;
     private EditText beerWineQuantity;
     private Spinner beerWineTypeSpinner;
@@ -110,9 +91,11 @@ public class BeerDialogFragment extends DialogFragment {
         }
 
         beerWineUnitSpinner =contentView.findViewById(R.id.beerWineUnitSpinner);
-        for (int i = 0; i < types.size(); i++){
-            unitNames.add(units.get(i).name);
-        }
+            //TODO: unnit spinner
+            // if ml --> *100
+            // if cl --> *10
+            // if dl --> nothing
+            // if liter --> /10
 
         return contentView;
     }
@@ -136,7 +119,6 @@ public class BeerDialogFragment extends DialogFragment {
             @Override
             protected List<Type> doInBackground(Void... voids) {
                 types = DB.TypeDao().getAll();
-                units = DB.UnitDao().getAll();
                 return DB.TypeDao().getAll();
             }
 
@@ -157,7 +139,6 @@ public class BeerDialogFragment extends DialogFragment {
             drink.name = "Beer";
         drink.quantity = Double.parseDouble(beerWineQuantity.getText().toString());
         drink.type = types.get(beerWineTypeSpinner.getSelectedItemPosition());
-        drink.unit = units.get(beerWineUnitSpinner.getSelectedItemPosition());
         drink.degrees = drink.type.degrees;
 
         return drink;

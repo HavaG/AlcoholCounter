@@ -7,8 +7,8 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 @Database(
-        entities = {Drink.class, Type.class, Unit.class},
-        version = 2,
+        entities = {Drink.class, Type.class},
+        version = 3,
         exportSchema = false
 )
 
@@ -16,7 +16,6 @@ import android.content.Context;
 public abstract class DrinkCounterDB extends RoomDatabase {
     public abstract DrinksDao DrinksDao();
     public abstract TypeDao TypeDao();
-    public abstract UnitDao UnitDao();
     private static DrinkCounterDB INSTANCE;
 
     public synchronized static DrinkCounterDB getInstance(Context context) {

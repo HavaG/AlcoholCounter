@@ -94,28 +94,11 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <DatePicker
+        android:id="@+id/dpEndDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="3">
-
-        <TextView
-            android:padding="12dip"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:layout_weight="2"
-            android:id="@+id/date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/date"/>
-
-        <Button
-            android:layout_weight="1"
-            android:id="@+id/beerWineDateBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/pick_date"
-            android:onClick="showDatePicker"/>
-    </LinearLayout>
+        android:layout_height="160dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner" />
 
 </LinearLayout>
