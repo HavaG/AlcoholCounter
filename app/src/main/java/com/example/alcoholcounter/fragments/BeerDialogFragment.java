@@ -1,9 +1,7 @@
 package com.example.alcoholcounter.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,13 +11,13 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.alcoholcounter.R;
 import com.example.alcoholcounter.database.Drink;
 import com.example.alcoholcounter.database.DrinkCounterDB;
-import com.example.alcoholcounter.database.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +27,6 @@ public class BeerDialogFragment extends DialogFragment {
     public static final String TAG = "NewCategoryDialogFragment";
 
     private DrinkCounterDB DB;
-    private List<Type> types;
-    private List<String> typeNames = new ArrayList<>();
     private List<String> unitNames = new ArrayList<>();
 
     public interface NewDrinkDialogListener {
@@ -50,7 +46,6 @@ public class BeerDialogFragment extends DialogFragment {
         }
 
         DB = DrinkCounterDB.getInstance(getContext());
-        loadBackground();
     }
 
     @NonNull
@@ -75,7 +70,7 @@ public class BeerDialogFragment extends DialogFragment {
     }
 
     private EditText beerWineName;
-    private EditText beerWineQuantity;
+    private NumberPicker beerWineQuantity;
     private Spinner beerWineTypeSpinner;
     private Spinner beerWineUnitSpinner;
 
@@ -83,12 +78,13 @@ public class BeerDialogFragment extends DialogFragment {
     private View getContentView() {
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_beer_wine, null);
         beerWineName =contentView.findViewById(R.id.beerWineName);
-        beerWineQuantity =contentView.findViewById(R.id.beerWineQuantity);
-        beerWineTypeSpinner =contentView.findViewById(R.id.beerWineTypeSpinner);
+        beerWineQuantity = (NumberPicker) contentView.findViewById(R.id.beerWineQuantityPicker);
 
-        for (int i = 0; i < types.size(); i++){
-            typeNames.add(types.get(i).name);
-        }
+        beerWineQuantity.setMinValue(0);
+        beerWineQuantity.setMaxValue(10);
+
+        beerWineQuantity.setWrapSelectorWheel(true);
+
 
         beerWineUnitSpinner =contentView.findViewById(R.id.beerWineUnitSpinner);
             //TODO: unnit spinner
@@ -111,24 +107,6 @@ public class BeerDialogFragment extends DialogFragment {
         return false;
     }
 
-    //Háttérben feltölni a types listát az összes típussal
-    @SuppressLint("StaticFieldLeak")
-    private void loadBackground() {
-        new AsyncTask<Void, Void, List<Type>>() {
-
-            @Override
-            protected List<Type> doInBackground(Void... voids) {
-                types = DB.TypeDao().getAll();
-                return DB.TypeDao().getAll();
-            }
-
-            @Override
-            protected void onPostExecute(List<Type> typeItems) {
-                types = typeItems;
-            }
-        }.execute();
-    }
-
     //hozzáadja az új italt
     private Drink getDrink() {
         Drink drink = new Drink();
@@ -137,9 +115,6 @@ public class BeerDialogFragment extends DialogFragment {
             drink.name = beerWineName.getText().toString();
         } else
             drink.name = "Beer";
-        drink.quantity = Double.parseDouble(beerWineQuantity.getText().toString());
-        drink.type = types.get(beerWineTypeSpinner.getSelectedItemPosition());
-        drink.degrees = drink.type.degrees;
 
         return drink;
     }

@@ -23,16 +23,4 @@ public class Converters {
         String json = gson.toJson(date);
         return json;
     }
-    @TypeConverter
-    public static com.example.alcoholcounter.database.Type fromTypeString(String value) {
-        Type listType = new TypeToken<com.example.alcoholcounter.database.Type>() {}.getType();
-        return new Gson().fromJson(value, listType);
-    }
-
-    @TypeConverter
-    public static String fromType(com.example.alcoholcounter.database.Type type) {
-        Gson gson = new Gson();
-        String json = gson.toJson(type);
-        return json;
-    }
 }

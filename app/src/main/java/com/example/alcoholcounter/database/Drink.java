@@ -25,9 +25,6 @@ public class Drink {
     @ColumnInfo(name = "degrees")
     public double degrees;
 
-    @ColumnInfo(name = "type")
-    public Type type;
-
     @ColumnInfo(name = "date")
     public Date date;
 }
