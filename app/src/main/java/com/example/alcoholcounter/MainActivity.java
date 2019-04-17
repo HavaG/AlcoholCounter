@@ -12,13 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.alcoholcounter.Adapter.DrinkAdapter;
+import com.example.alcoholcounter.Adapter.DrinkItemClickListener;
 import com.example.alcoholcounter.database.Drink;
 import com.example.alcoholcounter.database.DrinkCounterDB;
 import com.example.alcoholcounter.fragments.BeerDialogFragment;
 
-public class MainActivity extends AppCompatActivity implements BeerDialogFragment.NewDrinkDialogListener {
+public class MainActivity extends AppCompatActivity implements BeerDialogFragment.NewDrinkDialogListener,
+        DrinkItemClickListener {
 
     DrinkCounterDB DB;
+    DrinkAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
                         .setAction("Action", null).show();
             }
         });
+
+        initRecycleView();
+    }
+
+    private void initRecycleView() {
+        adapter = new DrinkAdapter(this);
     }
 
     @Override
@@ -84,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
 
     @SuppressLint("StaticFieldLeak")
     //@Override
-    public void onItemChanged(final Drink changedDrink) {
+    public void onDrinkChanged(final Drink changedDrink) {
         new AsyncTask<Void, Void, Boolean>() {
 
             @Override
@@ -136,5 +146,10 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
                 // adapter.deleteItem(delDrink);
             }
         }.execute();
+    }
+
+    @Override
+    public void onDrinkClick(Drink drinkItem) {
+        //TODO: ez miafaszom
     }
 }
