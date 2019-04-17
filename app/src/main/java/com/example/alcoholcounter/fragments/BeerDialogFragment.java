@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
@@ -71,27 +72,36 @@ public class BeerDialogFragment extends DialogFragment {
 
     private EditText beerWineName;
     private NumberPicker beerWineQuantity;
-    private Spinner beerWineTypeSpinner;
-    private Spinner beerWineUnitSpinner;
+    private NumberPicker beerWineDegree;
+    private DatePicker beerWineDate;
+    private Spinner beerWineUnit;
 
     //átveszi az értékeket az xml-ből. Feltölti a Spinner-t adatokkal
     private View getContentView() {
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_beer_wine, null);
+        //Name
         beerWineName =contentView.findViewById(R.id.beerWineName);
-        beerWineQuantity = (NumberPicker) contentView.findViewById(R.id.beerWineQuantityPicker);
 
-        beerWineQuantity.setMinValue(0);
-        beerWineQuantity.setMaxValue(10);
+        //Date
+        beerWineDate = contentView.findViewById(R.id.beerWineDatePicker);
 
-        beerWineQuantity.setWrapSelectorWheel(true);
+        //Quantity
+        beerWineQuantity = contentView.findViewById(R.id.beerWineQuantityPicker);
+        beerWineQuantity.setMinValue(1);
+        beerWineQuantity.setMaxValue(100);
 
-
-        beerWineUnitSpinner =contentView.findViewById(R.id.beerWineUnitSpinner);
+        //Unit
+        beerWineUnit =contentView.findViewById(R.id.beerWineUnitSpinner);
             //TODO: unnit spinner
             // if ml --> *100
             // if cl --> *10
             // if dl --> nothing
             // if liter --> /10
+
+        //Degree
+        beerWineDegree = contentView.findViewById(R.id.beerWineDegreePicker);
+        beerWineDegree.setMinValue(4);
+        beerWineDegree.setMaxValue(100);
 
         return contentView;
     }

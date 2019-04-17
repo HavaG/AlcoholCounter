@@ -19,7 +19,6 @@ import com.example.alcoholcounter.fragments.DatePickerFragment;
 public class MainActivity extends AppCompatActivity implements BeerDialogFragment.NewDrinkDialogListener {
 
     DrinkCounterDB DB;
-    BeerDialogFragment bdf = new BeerDialogFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
         addBeer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bdf.show(getSupportFragmentManager(), BeerDialogFragment.TAG);
+                new BeerDialogFragment().show(getSupportFragmentManager(), BeerDialogFragment.TAG);
             }
         });
 

@@ -10,6 +10,7 @@
     <string name="selected_date">No date selected</string>
     <string name="unit">Unit</string>
     <string name="mug">Mug</string>
+    <string name="alcohol_degrees">Alcohol degrees</string>
 
     <string-array name="unit_spinner">
         <item>cl</item>

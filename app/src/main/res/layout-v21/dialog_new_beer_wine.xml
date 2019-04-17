@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dip">
 
@@ -45,7 +47,7 @@
         <NumberPicker
             android:id="@+id/beerWineQuantityPicker"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="120dp"
             android:layout_weight="1"
             android:theme="@style/NumberPickerText"/>
 
@@ -89,12 +91,14 @@
             android:layout_weight="1"
             android:id="@+id/beerWineDegreePicker"
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
             android:theme="@style/NumberPickerText"/>
 
     </LinearLayout>
-
+    
+    
+    
     <DatePicker
         android:id="@+id/beerWineDatePicker"
         android:layout_width="match_parent"
@@ -103,3 +107,4 @@
         android:datePickerMode="spinner" />
 
 </LinearLayout>
+</ScrollView>
