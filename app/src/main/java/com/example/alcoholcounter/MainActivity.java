@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.view.View;
 import com.example.alcoholcounter.database.Drink;
 import com.example.alcoholcounter.database.DrinkCounterDB;
 import com.example.alcoholcounter.fragments.BeerDialogFragment;
-import com.example.alcoholcounter.fragments.DatePickerFragment;
 
 public class MainActivity extends AppCompatActivity implements BeerDialogFragment.NewDrinkDialogListener {
 
@@ -83,27 +83,58 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
     }
 
     @SuppressLint("StaticFieldLeak")
-    @Override
-    public void onDrinkCreated(final Drink drinkItem) {
-        new AsyncTask<Void, Void, Drink>() {
+    //@Override
+    public void onItemChanged(final Drink changedDrink) {
+        new AsyncTask<Void, Void, Boolean>() {
 
             @Override
-            protected Drink doInBackground(Void... voids) {
-                drinkItem.id = DB.DrinksDao().insert(drinkItem);
-                return drinkItem;
+            protected Boolean doInBackground(Void... voids) {
+                DB.DrinksDao().update(changedDrink);
+                return true;
             }
 
             @Override
-            protected void onPostExecute(Drink drinkItem) {
-                //TODO: adapter.addItem(drinkItem);
+            protected void onPostExecute(Boolean isSuccessful) {
+                Log.d("MainActivity", "ShoppingListItem update was successful");
             }
         }.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
+    @Override
+    public void onDrinkCreated(final Drink newDrink) {
+        new AsyncTask<Void, Void, Drink>() {
 
-    public void showDatePicker(View v) {
+            @Override
+            protected Drink doInBackground(Void... voids) {
+                newDrink.id = DB.DrinksDao().insert(newDrink);
+                return newDrink;
+            }
 
-        DatePickerFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "date picker");
+            @Override
+            protected void onPostExecute(Drink newDrink) {
+                //TODO adapter osztály létrehozni (create)
+                // adapter.addItem(newDrink);
+            }
+        }.execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    //@Override
+    public void onDrinkDeleted(final Drink delDrink) {
+        new AsyncTask<Void, Void, Drink>() {
+
+            @Override
+            protected Drink doInBackground(Void... voids) {
+                DB.DrinksDao().deleteItem(delDrink);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Drink delDrink) {
+                //TODO adapter osztály létrehozni (delete)
+                // adapter.deleteItem(delDrink);
+            }
+        }.execute();
     }
 }

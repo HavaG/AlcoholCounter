@@ -123,9 +123,7 @@ public class BeerDialogFragment extends DialogFragment {
     //hozzáadja az új italt
     private Drink getDrink() {
         Drink drink = new Drink();
-        //TODO: drink adataival feltölteni
 
-        //TODO: lehet itt nem elég a "" hanem más ellenőzés kell
         if(beerWineName.getText().toString().length() != 0) {
             drink.name = beerWineName.getText().toString();
         } else

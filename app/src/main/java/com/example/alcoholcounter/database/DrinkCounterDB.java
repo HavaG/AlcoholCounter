@@ -8,7 +8,7 @@ import android.content.Context;
 
 @Database(
         entities = {Drink.class},
-        version = 3,
+        version = 4,
         exportSchema = false
 )
 
