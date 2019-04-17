@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.alcoholcounter.R;
@@ -21,6 +20,7 @@ import com.example.alcoholcounter.database.Drink;
 import com.example.alcoholcounter.database.DrinkCounterDB;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class BeerDialogFragment extends DialogFragment {
@@ -74,7 +74,7 @@ public class BeerDialogFragment extends DialogFragment {
     private NumberPicker beerWineQuantity;
     private NumberPicker beerWineDegree;
     private DatePicker beerWineDate;
-    private Spinner beerWineUnit;
+    private NumberPicker beerWineUnit;
 
     //átveszi az értékeket az xml-ből. Feltölti a Spinner-t adatokkal
     private View getContentView() {
@@ -89,19 +89,22 @@ public class BeerDialogFragment extends DialogFragment {
         beerWineQuantity = contentView.findViewById(R.id.beerWineQuantityPicker);
         beerWineQuantity.setMinValue(1);
         beerWineQuantity.setMaxValue(100);
+        beerWineQuantity.setWrapSelectorWheel(true);
 
         //Unit
-        beerWineUnit =contentView.findViewById(R.id.beerWineUnitSpinner);
-            //TODO: unnit spinner
-            // if ml --> *100
-            // if cl --> *10
-            // if dl --> nothing
-            // if liter --> /10
+        beerWineUnit =contentView.findViewById(R.id.beerWineUnitPicker);
+        final String[] values= getResources().getStringArray(R.array.unit_picker);
+        beerWineUnit.setMinValue(0);
+        beerWineUnit.setMaxValue(values.length-1);
+        beerWineUnit.setDisplayedValues(values);
+        beerWineUnit.setWrapSelectorWheel(true);
+        beerWineUnit.setValue(4);
 
         //Degree
         beerWineDegree = contentView.findViewById(R.id.beerWineDegreePicker);
-        beerWineDegree.setMinValue(4);
+        beerWineDegree.setMinValue(1);
         beerWineDegree.setMaxValue(100);
+        beerWineDegree.setValue(4);
 
         return contentView;
     }
@@ -114,17 +117,42 @@ public class BeerDialogFragment extends DialogFragment {
         }
         return false;
         */
-        return false;
+        return true;
     }
 
     //hozzáadja az új italt
     private Drink getDrink() {
         Drink drink = new Drink();
         //TODO: drink adataival feltölteni
-        if(beerWineName.getText().toString() != "") {
+
+        //TODO: lehet itt nem elég a "" hanem más ellenőzés kell
+        if(beerWineName.getText().toString().length() != 0) {
             drink.name = beerWineName.getText().toString();
         } else
             drink.name = "Beer";
+
+        drink.quantity = beerWineQuantity.getValue();
+
+        double unit;
+        switch (beerWineUnit.getValue()) {
+            case 0: unit = 0.01; break;
+            case 1: unit = 0.1; break;
+            case 2: unit = 1; break;
+            case 3: unit = 10; break;
+            case 4: unit = 5; break;
+            case 5: unit = 2; break;
+            case 6: unit = 7.5; break;
+            default: unit = 0;
+        }
+        drink.unit = unit;
+
+        drink.degrees = beerWineDegree.getValue();
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, beerWineDate.getYear());
+        c.set(Calendar.MONTH, beerWineDate.getMonth());
+        c.set(Calendar.DAY_OF_MONTH, beerWineDate.getDayOfMonth());
+        drink.date = c.getTime();
 
         return drink;
     }

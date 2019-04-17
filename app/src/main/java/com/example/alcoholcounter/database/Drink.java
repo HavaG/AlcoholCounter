@@ -20,7 +20,7 @@ public class Drink {
     public double unit;
 
     @ColumnInfo(name = "quantity")
-    public double quantity;
+    public int quantity;
 
     @ColumnInfo(name = "degrees")
     public double degrees;

@@ -9,13 +9,18 @@
     <string name="pick_date">Pick Date</string>
     <string name="selected_date">No date selected</string>
     <string name="unit">Unit</string>
-    <string name="mug">Mug</string>
+    <string name="mug">Mug (5dl)</string>
+    <string name="glass">Glass (2dl)</string>
+    <string name="bottle">Bottle (7.5dl)</string>
     <string name="alcohol_degrees">Alcohol degrees</string>
 
-    <string-array name="unit_spinner">
+    <string-array name="unit_picker">
+        <item>ml</item>
         <item>cl</item>
         <item>dl</item>
         <item>l</item>
         <item>@string/mug</item>
+        <item>@string/glass</item>
+        <item>@string/bottle</item>
     </string-array>
 </resources>
