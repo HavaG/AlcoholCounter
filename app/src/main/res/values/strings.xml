@@ -13,6 +13,7 @@
     <string name="glass">Glass (2dl)</string>
     <string name="bottle">Bottle (7.5dl)</string>
     <string name="alcohol_degrees">Alcohol degrees</string>
+    <string name="beer">Beer</string>
 
     <string-array name="unit_picker">
         <item>ml</item>

@@ -1,28 +1,24 @@
 package com.example.alcoholcounter;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.alcoholcounter.Adapter.DrinkAdapter;
-import com.example.alcoholcounter.Adapter.DrinkItemClickListener;
 import com.example.alcoholcounter.database.Drink;
 import com.example.alcoholcounter.database.DrinkCounterDB;
 import com.example.alcoholcounter.fragments.BeerDialogFragment;
 
-public class MainActivity extends AppCompatActivity implements BeerDialogFragment.NewDrinkDialogListener,
-        DrinkItemClickListener {
+public class MainActivity extends AppCompatActivity implements BeerDialogFragment.NewDrinkDialogListener {
 
     DrinkCounterDB DB;
-    DrinkAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +58,6 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
                         .setAction("Action", null).show();
             }
         });
-
-        initRecycleView();
-    }
-
-    private void initRecycleView() {
-        adapter = new DrinkAdapter(this);
     }
 
     @Override
@@ -92,22 +82,9 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressLint("StaticFieldLeak")
-    //@Override
-    public void onDrinkChanged(final Drink changedDrink) {
-        new AsyncTask<Void, Void, Boolean>() {
-
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                DB.DrinksDao().update(changedDrink);
-                return true;
-            }
-
-            @Override
-            protected void onPostExecute(Boolean isSuccessful) {
-                Log.d("MainActivity", "ShoppingListItem update was successful");
-            }
-        }.execute();
+    public void showDrinks(View v) {
+        Intent i = new Intent(this, DrinksActivity.class);
+        startActivity(i);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -120,36 +97,6 @@ public class MainActivity extends AppCompatActivity implements BeerDialogFragmen
                 newDrink.id = DB.DrinksDao().insert(newDrink);
                 return newDrink;
             }
-
-            @Override
-            protected void onPostExecute(Drink newDrink) {
-                //TODO adapter osztály létrehozni (create)
-                // adapter.addItem(newDrink);
-            }
         }.execute();
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    //@Override
-    public void onDrinkDeleted(final Drink delDrink) {
-        new AsyncTask<Void, Void, Drink>() {
-
-            @Override
-            protected Drink doInBackground(Void... voids) {
-                DB.DrinksDao().deleteItem(delDrink);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Drink delDrink) {
-                //TODO adapter osztály létrehozni (delete)
-                // adapter.deleteItem(delDrink);
-            }
-        }.execute();
-    }
-
-    @Override
-    public void onDrinkClick(Drink drinkItem) {
-        //TODO: ez miafaszom
     }
 }

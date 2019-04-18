@@ -73,6 +73,7 @@ public class BeerDialogFragment extends DialogFragment {
     private EditText beerWineName;
     private NumberPicker beerWineQuantity;
     private NumberPicker beerWineDegree;
+    private NumberPicker beerWineDegreeDecimal;
     private DatePicker beerWineDate;
     private NumberPicker beerWineUnit;
 
@@ -106,10 +107,16 @@ public class BeerDialogFragment extends DialogFragment {
         beerWineDegree.setMaxValue(100);
         beerWineDegree.setValue(4);
 
+        beerWineDegreeDecimal = contentView.findViewById(R.id.beerWineDegreeDecimalPicker);
+        beerWineDegreeDecimal.setMinValue(0);
+        beerWineDegreeDecimal.setMaxValue(99);
+        beerWineDegreeDecimal.setValue(0);
+
         return contentView;
     }
 
     //ellenőrzi az összes adatot. Ha helyesek, akkor true
+    //TODO: isValid
     private boolean isValid() {
         /*
         if(nameedittext.gettext().length() > 0 && date != 0) {
@@ -144,7 +151,8 @@ public class BeerDialogFragment extends DialogFragment {
         }
         drink.unit = unit;
 
-        drink.degrees = beerWineDegree.getValue();
+        double degree = beerWineDegree.getValue() + 0.1 * beerWineDegreeDecimal.getValue();
+        drink.degrees = degree;
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, beerWineDate.getYear());
