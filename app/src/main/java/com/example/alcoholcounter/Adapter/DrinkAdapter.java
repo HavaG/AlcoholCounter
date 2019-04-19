@@ -14,10 +14,11 @@ import com.example.alcoholcounter.database.Drink;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHolder> {
 
-    DrinkItemClickListener listener;
+    private DrinkItemClickListener listener;
     private List<Drink> drinks;
 
     public DrinkAdapter(DrinkItemClickListener listener) {
@@ -42,10 +43,10 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
 
         Double d1 = drinkItem.unit * drinkItem.quantity;
         String unit;
-        if(d1 > 10){
+        if(d1 >= 10){
             d1 = Math.round(d1 * 100.0) / 1000.0;
             unit = " l";
-        } else if(d1 > 1){
+        } else if(d1 >= 1){
             d1 = Math.round(d1 * 100.0) / 100.0;
             unit = " dl";
         } else {
@@ -58,7 +59,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
         if(d1%1 == 0){
             s1 = roundedAmount.toString();
         } else {
-            s1 = d1.toString();
+            s1 = Double.toString(d1);
         }
         s1 += unit;
         drinkViewHolder.unitTV.setText(s1);
@@ -79,9 +80,9 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
         int mMonth = calendar.get(Calendar.MONTH);
         int mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        String year4digits = String.format("%04d", mYear);
-        String month2digits = String.format("%02d", mMonth);
-        String day2digits = String.format("%02d", mDay);
+        String year4digits = String.format(Locale.getDefault(),"%04d", mYear);
+        String month2digits = String.format(Locale.getDefault(),"%02d", mMonth);
+        String day2digits = String.format(Locale.getDefault(),"%02d", mDay);
 
 
         String s3 = year4digits + ". " + month2digits + ". " + day2digits + ".";
@@ -96,7 +97,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
         return drinks.size();
     }
 
-    public class DrinkViewHolder extends RecyclerView.ViewHolder {
+    class DrinkViewHolder extends RecyclerView.ViewHolder {
 
         TextView nameTV;
         TextView unitTV;
@@ -107,7 +108,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.DrinkViewHol
 
         Drink drinkItem;
 
-        public DrinkViewHolder(@NonNull View itemView) {
+        DrinkViewHolder(@NonNull View itemView) {
             super(itemView);
 
             nameTV =itemView.findViewById(R.id.drinkName);
