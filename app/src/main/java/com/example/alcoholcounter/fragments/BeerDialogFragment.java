@@ -1,5 +1,6 @@
 package com.example.alcoholcounter.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 
 import com.example.alcoholcounter.R;
 import com.example.alcoholcounter.database.Drink;
@@ -59,11 +59,7 @@ public class BeerDialogFragment extends DialogFragment {
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (isValid()) {
                             listener.onDrinkCreated(getDrink());
-                        } else {
-                            Toast.makeText(getContext(), "All textfield required", Toast.LENGTH_LONG).show();
-                        }
                     }
                 })
                 .setNegativeButton("Cancel", null)
@@ -79,6 +75,7 @@ public class BeerDialogFragment extends DialogFragment {
 
     //átveszi az értékeket az xml-ből. Feltölti a Spinner-t adatokkal
     private View getContentView() {
+        @SuppressLint("InflateParams")
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_beer_wine, null);
         //Name
         beerWineName =contentView.findViewById(R.id.beerWineName);
@@ -99,7 +96,7 @@ public class BeerDialogFragment extends DialogFragment {
         beerWineUnit.setMaxValue(values.length-1);
         beerWineUnit.setDisplayedValues(values);
         beerWineUnit.setWrapSelectorWheel(true);
-        beerWineUnit.setValue(4);
+        beerWineUnit.setValue(6);
 
         //Degree
         beerWineDegree = contentView.findViewById(R.id.beerWineDegreePicker);
@@ -107,24 +104,13 @@ public class BeerDialogFragment extends DialogFragment {
         beerWineDegree.setMaxValue(100);
         beerWineDegree.setValue(4);
 
+        //Degree decimal
         beerWineDegreeDecimal = contentView.findViewById(R.id.beerWineDegreeDecimalPicker);
         beerWineDegreeDecimal.setMinValue(0);
         beerWineDegreeDecimal.setMaxValue(99);
         beerWineDegreeDecimal.setValue(0);
 
         return contentView;
-    }
-
-    //ellenőrzi az összes adatot. Ha helyesek, akkor true
-    //TODO: isValid
-    private boolean isValid() {
-        /*
-        if(nameedittext.gettext().length() > 0 && date != 0) {
-            return true;
-        }
-        return false;
-        */
-        return true;
     }
 
     //hozzáadja az új italt
@@ -144,15 +130,15 @@ public class BeerDialogFragment extends DialogFragment {
             case 1: unit = 0.1; break;
             case 2: unit = 1; break;
             case 3: unit = 10; break;
-            case 4: unit = 5; break;
-            case 5: unit = 2; break;
-            case 6: unit = 7.5; break;
+            case 4: unit = 2; break;
+            case 5: unit = 3.33; break;
+            case 6: unit = 5; break;
+            case 7: unit = 7.5; break;
             default: unit = 0;
         }
         drink.unit = unit;
 
-        double degree = beerWineDegree.getValue() + 0.1 * beerWineDegreeDecimal.getValue();
-        drink.degrees = degree;
+        drink.degrees = beerWineDegree.getValue() + 0.1 * beerWineDegreeDecimal.getValue();
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, beerWineDate.getYear());

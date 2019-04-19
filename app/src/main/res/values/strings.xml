@@ -15,15 +15,19 @@
     <string name="alcohol_degrees">Alcohol degrees</string>
     <string name="beer">Beer</string>
     <string name="drinks">Drinks</string>
-    <string name="deletebtn">deleteBtn</string>
+    <string name="delete_btn">deleteBtn</string>
+    <string name="smallBeer">Small Beer (3.33dl)</string>
+    <string name="dot">.</string>
+    <string name="percentage">%</string>
 
     <string-array name="unit_picker">
         <item>ml</item>
         <item>cl</item>
         <item>dl</item>
         <item>l</item>
-        <item>@string/mug</item>
         <item>@string/glass</item>
+        <item>@string/smallBeer</item>
+        <item>@string/mug</item>
         <item>@string/bottle</item>
     </string-array>
 </resources>

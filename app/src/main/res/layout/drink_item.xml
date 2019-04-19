@@ -91,6 +91,6 @@
         android:layout_gravity="center_vertical"
         android:scaleType="fitXY"
         android:src="@drawable/ic_delete_black_24dp"
-        android:contentDescription="@string/deletebtn" />
+        android:contentDescription="@string/delete_btn" />
 
 </android.support.design.circularreveal.CircularRevealRelativeLayout>
